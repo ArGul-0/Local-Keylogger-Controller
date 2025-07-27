@@ -7,7 +7,7 @@ namespace Local_Keylogger_Controller
 {
     internal class Program
     {
-        public const int DiscoveryPort = 5000;
+        public const int DiscoveryPort = 5001;
         private const string DiscoveryMessage = "DISCOVER_AGENT";
         private const uint ReciveTimeoutMs = 3000; // 3 seconds
 
