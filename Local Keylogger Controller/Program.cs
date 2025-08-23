@@ -20,7 +20,8 @@ namespace Local_Keylogger_Controller
 
         static async Task Main(string[] args)
         {
-            Console.WriteLine($"Starting Local Keylogger Controller, Version: {version}\nMade by ArGul, GitHub: https://github.com/ArGul-0/Local-Keylogger-Controller");
+            Console.WriteLine($"Starting Local Keylogger Controller, Version: {version}" +
+                $"\nMade by ArGul, GitHub: https://github.com/ArGul-0/Local-Keylogger-Controller");
 
             using UdpClient udpClient = new UdpClient();
             udpClient.EnableBroadcast = true;
