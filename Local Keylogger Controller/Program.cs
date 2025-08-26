@@ -84,7 +84,6 @@ namespace Local_Keylogger_Controller
             if(discoveryAgents.Count == 0)
             {
                 Console.WriteLine("No agents discovered.");
-                return;
             }
             else
             {
