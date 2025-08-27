@@ -22,6 +22,7 @@ namespace Local_Keylogger_Controller
         {
             Console.WriteLine($"Starting Local Keylogger Controller, Version: {version}" +
                 $"\nMade by ArGul, GitHub: https://github.com/ArGul-0/Local-Keylogger-Controller");
+            Console.WriteLine("\nSending discovery message to local network...");
 
             using UdpClient udpClient = new UdpClient();
             udpClient.EnableBroadcast = true;
@@ -134,6 +135,7 @@ namespace Local_Keylogger_Controller
             }
 
             Console.WriteLine("\nController work complete. Press Enter to exit.");
+            Console.WriteLine("Remember to stop the agents manually if needed.");
             Console.ReadLine();
         }
     }
