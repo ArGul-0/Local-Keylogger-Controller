@@ -5,7 +5,7 @@ Please, read **[README.md](https://github.com/ArGul-0/Local-Keylogger-Agent/blob
 
 **Local Keylogger Agent repository** - _https://github.com/ArGul-0/Local-Keylogger-Agent_.
 
-The project is distributed under the **MIT license** — see the LICENSE.md file.
+The project is distributed under the **MIT license** — see the [LICENSE.md](https://github.com/ArGul-0/Local-Keylogger-Controller/blob/master/LICENSE.md) file.
 <details>
 <summary><strong>⚠️ IMPORTANT — Responsible Use & Liability Notice</strong></summary>
 
